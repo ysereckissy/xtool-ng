@@ -32,5 +32,14 @@ RUN wget -O /sbin/dumb-init https://github.com/Yelp/dumb-init/releases/download/
     && chmod a+x /sbin/dumb-init \
     && echo 'export PATH=/opt/ctng/bin:$PATH' >> /etc/profile
 
+# Downoad and compile crosstool-NG
+RUN wget http://crosstool-ng.org/download/crosstool-ng/crosstool-ng-1.23.0.tar.xz 2>&1 && \
+    tar xf crosstool-ng-*.tar.* && \
+    cd crosstool-ng-1.23.0 && \
+    ./configure && \
+    make && \
+    make install && \
+    rm -rf ../crosstool-ng*
+
 ENTRYPOINT ["/sbin/dumb-init", "--"]
 
